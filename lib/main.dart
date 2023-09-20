@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hbk_demo/pages/dashboard.dart';
 import 'package:hbk_demo/pages/login_page.dart';
 import 'package:hbk_demo/pages/registration_page.dart';
 import 'package:hbk_demo/pages/splash_screen.dart';
@@ -16,10 +17,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: Dashboard(),
       theme: ThemeData(primarySwatch: Colors.purple),
       routes: {
         '/login': (context) => LoginPage(),
+        '/dashboard': (context) => Dashboard(),
         '/register': (context) => RegistrationPage()
       },
     );

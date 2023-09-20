@@ -6,7 +6,9 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        elevation: 0,
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -43,6 +45,37 @@ class LoginPage extends StatelessWidget {
                 onPressed: () {},
                 child: Text("Log In"),
               ),
+            ),
+          ),
+
+          // Center(
+          //     child: Padding(
+          //   padding: EdgeInsets.all(10),
+          //   child: Text(
+          //     "Don't have an account? Register now!",
+          //     style: TextStyle(color: Colors.black),
+          //   ),
+          // )),
+
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(5),
+                  child: Text(
+                    "Powered by Going Genius Group Of Companies",
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(5),
+                  child: Text(
+                    "www.goinggenius.com.np",
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                ),
+              ],
             ),
           )
         ],
