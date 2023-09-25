@@ -1,7 +1,48 @@
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class LoginPage extends StatefulWidget {
+  LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  var email_controller = TextEditingController();
+  var password_controller = TextEditingController();
+
+  //final url = 'http://10.0.2.2:90/login/admin';
+
+  String email = "";
+  String password = "";
+
+  void login() async {
+    setState(() {
+      email = email_controller.text;
+      password = password_controller.text;
+    });
+
+    var user = jsonEncode({"email": email, "password": password});
+
+    try {
+      Response response = await post(
+          Uri.parse("http://10.0.2.2:90/login/admin"),
+          headers: {"Content-Type": "application/json"},
+          body: user);
+
+      if (response.statusCode == 200) {
+        var parsed = jsonDecode(response.body);
+        print(parsed["token"]);
+        Navigator.pushNamed(context, "/dashboard1");
+      } else {
+        print("login failed");
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +61,7 @@ class LoginPage extends StatelessWidget {
           Padding(
             padding: EdgeInsets.all(20),
             child: TextField(
+              controller: email_controller,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: "Email",
@@ -29,20 +71,24 @@ class LoginPage extends StatelessWidget {
           Padding(
             padding: EdgeInsets.all(20),
             child: TextField(
+              controller: password_controller,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: "Password",
               ),
             ),
           ),
-          // SizedBox(child: ElevatedButton(onPressed: () {}, child: Text("Login")))
+
+          // login button
           Padding(
             padding: EdgeInsets.all(20),
             child: SizedBox(
               width: double.infinity,
               height: 50,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  login();
+                },
                 child: Text("Log In"),
               ),
             ),
