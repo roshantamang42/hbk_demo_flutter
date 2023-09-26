@@ -78,21 +78,21 @@ class CategoriesList extends StatelessWidget {
     return UnconstrainedBox(
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 10),
-        height: 114,
+        height: 120,
         width: 100,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          // mainAxisAlignment: MainAxisAlignment.,
           children: [
             Padding(
               padding: const EdgeInsets.all(3),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.network(
-                    "http://10.0.2.2:90/files/" + category_photo),
+                child:
+                    Image.network("http://10.0.2.2:90/files/" + category_photo),
               ),
             ),
             Padding(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hbk_demo/components/categories_list.dart';
 import 'package:hbk_demo/components/product_list.dart';
 import 'package:hbk_demo/models/categories_model.dart';
+import 'package:hbk_demo/pages/ordersList.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -12,6 +13,10 @@ class Dashboard1 extends StatefulWidget {
 
 class _Dashboard1State extends State<Dashboard1> {
   var _categories = [];
+  var _products = [];
+  int total_price = 0;
+
+  var _cart = [];
 
   //final List category = ["pilot", "surya"];
 
@@ -55,8 +60,21 @@ class _Dashboard1State extends State<Dashboard1> {
       categories = jsonDecode(response.body)["data"];
     }
 
-    print(categories[1]["category_name"].runtimeType);
+    //print(categories[1]["category_name"].runtimeType);
     return categories;
+  }
+
+  Future fetchProducts() async {
+    var url = "http://10.0.2.2:90/product/showall";
+    var response = await http.get(Uri.parse(url));
+    var products = [];
+
+    if (response.statusCode == 200) {
+      products = jsonDecode(response.body)["data"];
+    }
+
+    //print(products);
+    return products;
   }
 
   @override
@@ -65,9 +83,24 @@ class _Dashboard1State extends State<Dashboard1> {
       setState(() {
         _categories.addAll(value);
       });
-      print(_categories[1]["category_name"]);
     });
+
+    fetchProducts().then((value) {
+      setState(() {
+        _products.addAll(value);
+      });
+      //print(_products[0]["photo"]);
+      //print(_products);
+    });
+
     super.initState();
+  }
+
+  addItem(int index) {
+    setState(() {
+      _cart.add(_products[index]);
+      print(_cart);
+    });
   }
 
   @override
@@ -132,9 +165,38 @@ class _Dashboard1State extends State<Dashboard1> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: ListView.builder(
-              itemCount: 10,
+              itemCount: _products.length,
               itemBuilder: (context, index) {
-                return ProductList();
+                return GestureDetector(
+                  child: ProductList(
+                    product_name: _products[index]["product_name"],
+                    price: _products[index]["price"],
+                    product_photo: _products[index]["photo"],
+                  ),
+                  onTap: () {
+                    addItem(index);
+                    int totalPrice =
+                        total_price += int.parse(_products[index]["price"]);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: Colors.purple,
+                        content: GestureDetector(
+                          child: Text(
+                            totalPrice.toString(),
+                            textAlign: TextAlign.center,
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        OrdersList(orders: _cart)));
+                          },
+                        ),
+                      ),
+                    );
+                  },
+                );
               },
             ),
           ),

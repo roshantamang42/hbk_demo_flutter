@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hbk_demo/pages/dashboard.dart';
 import 'package:hbk_demo/pages/dashboard1.dart';
 import 'package:hbk_demo/pages/login_page.dart';
+import 'package:hbk_demo/pages/ordersList.dart';
 import 'package:hbk_demo/pages/registration_page.dart';
 import 'package:hbk_demo/pages/splash_screen.dart';
 import 'package:hbk_demo/pages/test.dart';
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginPage(),
         '/dashboard': (context) => Dashboard(),
         '/dashboard1': (context) => Dashboard1(),
-        '/register': (context) => RegistrationPage()
+        '/register': (context) => RegistrationPage(),
+        //'/orders': (context) => OrdersList(orders: [],)
       },
     );
   }

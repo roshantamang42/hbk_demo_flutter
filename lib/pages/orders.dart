@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class ProductList extends StatelessWidget {
+class Orders extends StatelessWidget {
   late String product_name;
   late String price;
   late String product_photo;
 
-  ProductList(
+  Orders(
       {required this.product_name,
       required this.price,
       required this.product_photo});
@@ -59,5 +59,6 @@ class ProductList extends StatelessWidget {
         ),
       ),
     );
+    ;
   }
 }
