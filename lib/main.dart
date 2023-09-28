@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hbk_demo/pages/admin/add_category.dart';
+import 'package:hbk_demo/pages/admin/admin_category_list.dart';
 import 'package:hbk_demo/pages/dashboard.dart';
 import 'package:hbk_demo/pages/dashboard1.dart';
+import 'package:hbk_demo/pages/drawer_menu.dart';
 import 'package:hbk_demo/pages/login_page.dart';
 import 'package:hbk_demo/pages/ordersList.dart';
 import 'package:hbk_demo/pages/registration_page.dart';
@@ -19,11 +22,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Dashboard1(),
+      home: AdminCategoriesList(),
       theme: ThemeData(primarySwatch: Colors.purple),
       routes: {
         '/login': (context) => LoginPage(),
-        '/dashboard': (context) => Dashboard(),
+        //'/dashboard': (context) => Dashboard(),
         '/dashboard1': (context) => Dashboard1(),
         '/register': (context) => RegistrationPage(),
         //'/orders': (context) => OrdersList(orders: [],)

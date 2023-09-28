@@ -106,7 +106,7 @@ class _Dashboard1State extends State<Dashboard1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      //appBar: AppBar(),
       backgroundColor: Colors.grey[400],
       body: Column(children: [
         //search bar
@@ -174,27 +174,42 @@ class _Dashboard1State extends State<Dashboard1> {
                     product_photo: _products[index]["photo"],
                   ),
                   onTap: () {
-                    addItem(index);
-                    int totalPrice =
-                        total_price += int.parse(_products[index]["price"]);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        backgroundColor: Colors.purple,
-                        content: GestureDetector(
-                          child: Text(
-                            totalPrice.toString(),
-                            textAlign: TextAlign.center,
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        OrdersList(orders: _cart)));
-                          },
-                        ),
-                      ),
-                    );
+                    // addItem(index);
+                    // int totalPrice =
+                    //     total_price += int.parse(_products[index]["price"]);
+                    // ScaffoldMessenger.of(context).showSnackBar(
+                    //   SnackBar(
+                    //     backgroundColor: Colors.purple,
+                    //     content: GestureDetector(
+                    //       child: Text(
+                    //         totalPrice.toString(),
+                    //         textAlign: TextAlign.center,
+                    //       ),
+                    //       onTap: () {
+                    //         Navigator.push(
+                    //           context,
+                    //           MaterialPageRoute(
+                    //             builder: (context) => OrdersList(orders: _cart),
+                    //           ),
+                    //         );
+                    //       },
+                    //     ),
+                    //   ),
+                    // );
+                    // showModalBottomSheet(
+                    //   context: context,
+                    //   builder: (BuildContext context) {
+                    //     return SizedBox(
+                    //       height: 400,
+                    //       child: Text("hello"),
+                    //     );
+                    //   },
+                    // );
+
+                    // Future openDialog() => showDialog(
+                    //       context: context,
+                    //       builder: (context) => AboutDialog(title),
+                    //     );
                   },
                 );
               },
