@@ -19,10 +19,10 @@ class AddCategory extends StatefulWidget {
 
 class _AddCategoryState extends State<AddCategory> {
   var categoryNameController = TextEditingController();
-  String categoryName = "";
+  late String categoryName;
   File? pickedFile;
 
-  ImageUploadService uploadService = ImageUploadService();
+  // ImageUploadService uploadService = ImageUploadService();
 
   Future _openGallery() async {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -30,7 +30,6 @@ class _AddCategoryState extends State<AddCategory> {
     if (image != null) {
       setState(() {
         pickedFile = File(image.path);
-        categoryName = categoryNameController.text.toString();
       });
     } else {
       print("No image selected");
@@ -38,6 +37,7 @@ class _AddCategoryState extends State<AddCategory> {
   }
 
   Future<void> addCategory() async {
+    categoryName = categoryNameController.text.toString();
     try {
       Dio dio = Dio();
 

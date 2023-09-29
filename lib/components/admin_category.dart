@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hbk_demo/components/show_bottom.dart';
 import 'package:hbk_demo/config/config.dart';
-import 'package:hbk_demo/config/image_upload_service.dart';
+import 'package:hbk_demo/pages/admin/edit_category.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
@@ -14,8 +14,6 @@ class AdminCategory extends StatelessWidget {
   late int categoryId;
   late String image;
   var categoryNameController = TextEditingController();
-  XFile? returnedImage;
-  ImageUploadService uploadService = ImageUploadService();
 
   AdminCategory(
       {required this.categoryName,
@@ -23,25 +21,25 @@ class AdminCategory extends StatelessWidget {
       required this.categoryId,
       required this.image});
 
-  Future addPhoto() async {
-    returnedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+  // Future addPhoto() async {
+  //   final returnedImage =
+  //       await ImagePicker().pickImage(source: ImageSource.gallery);
+  //   if (returnedImage == null) return;
+  //   // setState(() {
+  //   //   _selectedImage = File(returnedImage.path);
+  //   // });
+  // }
 
-    if (returnedImage == null) return;
-    // setState(() {
-    //   _selectedImage = File(returnedImage.path);
-    // });
-  }
+  // Future editCategory(categoryId) async {
+  //   var url = "${baseUrl}category/update/$categoryId";
+  //   var response = await http.get(Uri.parse(url));
 
-  Future editCategory(categoryId) async {
-    var url = "${baseUrl}category/update/$categoryId";
-    var response = await http.get(Uri.parse(url));
-
-    if (response.statusCode == 200) {
-      print("nice");
-    } else {
-      print("no nice");
-    }
-  }
+  //   if (response.statusCode == 200) {
+  //     print("nice");
+  //   } else {
+  //     print("no nice");
+  //   }
+  // }
 
   Future deleteCategories(categoryId) async {
     try {
@@ -100,120 +98,19 @@ class AdminCategory extends StatelessWidget {
                       color: Colors.black,
                     ),
                     onTap: () {
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return Container(
-                              height: 500,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(12),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 5),
-                                      child: Text(
-                                        "Edit Category",
-                                        style: TextStyle(
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 5),
-                                      child: TextField(
-                                        controller: categoryNameController,
-                                        decoration: InputDecoration(
-                                            border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                                borderSide: BorderSide(
-                                                    color: Colors.black,
-                                                    style: BorderStyle.solid)),
-                                            hintText: "Category Name"),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 10),
-                                      child: GestureDetector(
-                                        onTap: addPhoto,
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              border: Border.all(),
-                                              borderRadius:
-                                                  BorderRadius.circular(8)),
-                                          height: 150,
-                                          width: double.infinity,
-                                          child: PickedFile != null
-                                              ? Image.network(
-                                                  baseUrl + "files/" + image,
-                                                  height: 20,
-                                                  width: 20,
-                                                )
-                                              : Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                      Icon(Icons
-                                                          .cloud_upload_outlined),
-                                                      Text(
-                                                          "Click here to choose an image")
-                                                    ]),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 10),
-                                      child: SizedBox(
-                                        height: 50,
-                                        width: double.infinity,
-                                        child: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(),
-                                          onPressed: () {
-                                            editCategory(categoryId);
-                                          },
-                                          child: Text('Done'),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 5),
-                                      child: SizedBox(
-                                        height: 50,
-                                        width: double.infinity,
-                                        child: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                              backgroundColor: Colors.white),
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                            // setState(() {
-                                            //   categoryNameController.text = '';
-                                            //   image = null;
-                                            // });
-                                          },
-                                          child: Text(
-                                            'Cancel',
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          });
+                      print(categoryName);
+                      print(categoryId);
+                      print(categoryPhoto);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EditCategory(
+                            categoryId1: categoryId,
+                            categoryName1: categoryName,
+                            categoryPhoto1: categoryPhoto,
+                          ),
+                        ),
+                      );
                     },
                   ),
                   GestureDetector(

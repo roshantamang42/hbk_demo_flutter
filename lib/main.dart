@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hbk_demo/pages/admin/add_category.dart';
 import 'package:hbk_demo/pages/admin/admin_category_list.dart';
+import 'package:hbk_demo/pages/admin/edit_category.dart';
 import 'package:hbk_demo/pages/dashboard.dart';
 import 'package:hbk_demo/pages/dashboard1.dart';
 import 'package:hbk_demo/pages/drawer_menu.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: AdminCategoriesList(),
+      // home: EditCategory(categoryId1: 21,categoryName1: "ppp",categoryPhoto1: "momo.jpeg",),
       theme: ThemeData(primarySwatch: Colors.purple),
       routes: {
         '/login': (context) => LoginPage(),
