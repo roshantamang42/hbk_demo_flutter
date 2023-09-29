@@ -1,64 +1,40 @@
-import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:hbk_demo/pages/admin/products/edit_product.dart';
+import 'package:http/http.dart' as http;
 import 'dart:io';
 
-import 'package:flutter/material.dart';
-import 'package:hbk_demo/components/show_bottom.dart';
-import 'package:hbk_demo/config/config.dart';
-import 'package:hbk_demo/pages/admin/edit_category.dart';
-import 'package:http/http.dart' as http;
-import 'package:image_picker/image_picker.dart';
-
-class AdminCategory extends StatelessWidget {
-  late String categoryName;
-  late String categoryPhoto;
+class ProductViewComponent extends StatelessWidget {
+  late int productId;
+  late String productName;
   late int categoryId;
-  late String image;
-  var categoryNameController = TextEditingController();
+  late String price;
+  late String supplierInfo;
+  late String productPhoto;
+  //final String image;
 
-  AdminCategory(
-      {required this.categoryName,
-      required this.categoryPhoto,
+  ProductViewComponent(
+      {super.key,
+      required this.productId,
+      required this.productName,
       required this.categoryId,
-      required this.image});
+      required this.price,
+      required this.supplierInfo,
+      required this.productPhoto});
 
-  // Future addPhoto() async {
-  //   final returnedImage =
-  //       await ImagePicker().pickImage(source: ImageSource.gallery);
-  //   if (returnedImage == null) return;
-  //   // setState(() {
-  //   //   _selectedImage = File(returnedImage.path);
-  //   // });
-  // }
-
-  // Future editCategory(categoryId) async {
-  //   var url = "${baseUrl}category/update/$categoryId";
-  //   var response = await http.get(Uri.parse(url));
-
-  //   if (response.statusCode == 200) {
-  //     print("nice");
-  //   } else {
-  //     print("no nice");
-  //   }
-  // }
-
-  Future deleteCategories(categoryId) async {
+  Future deleteproducts(productId) async {
     try {
-      var url = "http://10.0.2.2:90/category/delete/$categoryId";
-      print(url);
+      var url = "http://10.0.2.2:90/product/delete/$productId";
+
       var response = await http.delete(Uri.parse(url));
 
-      print(response.statusCode);
-
       if (response.statusCode == 200) {
-        print("category delted");
+        print("product deleted");
       } else {
-        print("cannot delete category");
+        print("cannot delete product");
       }
     } catch (e) {
       print(e.toString());
     }
-
-    //print(categories[1]["category_name"].runtimeType);
   }
 
   @override
@@ -81,10 +57,10 @@ class AdminCategory extends StatelessWidget {
                   height: 80,
                   width: 100,
                   child:
-                      Image.network("http://10.0.2.2:90/files/$categoryPhoto")),
+                      Image.network("http://10.0.2.2:90/files/$productPhoto")),
             ),
             Text(
-              categoryName,
+              productName,
               style: TextStyle(fontSize: 20),
             ),
             Padding(
@@ -98,19 +74,19 @@ class AdminCategory extends StatelessWidget {
                       color: Colors.black,
                     ),
                     onTap: () {
-                      print(categoryName);
-                      print(categoryId);
-                      print(categoryPhoto);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => EditCategory(
-                            categoryId1: categoryId,
-                            categoryName1: categoryName,
-                            categoryPhoto1: categoryPhoto,
-                          ),
-                        ),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => EditProduct(
+                      //       productId: productId,
+                      //       productName: productName,
+                      //       categoryId: categoryId,
+                      //       price: price,
+                      //       supplierInfo: supplierInfo,
+                      //       productPhoto: productPhoto,
+                      //     ),
+                      //   ),
+                      // );
                     },
                   ),
                   GestureDetector(
@@ -131,8 +107,8 @@ class AdminCategory extends StatelessWidget {
                                   children: [
                                     TextButton(
                                       onPressed: () {
+                                        deleteproducts(productId);
                                         Navigator.of(context).pop();
-                                        deleteCategories(categoryId);
                                       },
                                       child: Text("OK"),
                                     ),

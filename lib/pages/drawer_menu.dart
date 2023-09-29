@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hbk_demo/components/category.dart';
 import 'package:hbk_demo/pages/admin/admin_category_list.dart';
+import 'package:hbk_demo/pages/admin/products/show_all_products.dart';
 import 'package:hbk_demo/pages/dashboard.dart';
 import 'package:hbk_demo/pages/dashboard1.dart';
 import 'package:hbk_demo/pages/products.dart';
@@ -43,7 +44,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
           baseStyle: TextStyle(color: Colors.white, fontSize: 20),
           selectedStyle: TextStyle(),
         ),
-        Products(),
+        ShowAllProducts(),
       ),
     ];
   }

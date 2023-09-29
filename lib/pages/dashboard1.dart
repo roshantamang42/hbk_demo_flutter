@@ -145,7 +145,7 @@ class _Dashboard1State extends State<Dashboard1> {
 
         // categories list
         Container(
-          padding: EdgeInsets.only(left: 5, right: 15),
+          padding: EdgeInsets.only(left: 10, right: 10),
           height: 150,
           child: ListView.builder(
             itemCount: _categories.length,

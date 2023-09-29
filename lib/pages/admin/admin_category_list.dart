@@ -18,10 +18,6 @@ class AdminCategoriesList extends StatefulWidget {
 class _AdminCategoriesListState extends State<AdminCategoriesList> {
   final _categories = [];
 
-  void addCategory() async {
-    //to do
-  }
-
   Future fetchCategories() async {
     var url = "http://10.0.2.2:90/category/showall";
     var response = await http.get(Uri.parse(url));
@@ -48,10 +44,10 @@ class _AdminCategoriesListState extends State<AdminCategoriesList> {
     return Scaffold(
       body: Column(
         children: [
-          Text(
-            "Categories",
-            style: TextStyle(fontSize: 40),
-          ),
+          // Text(
+          //   "Categories",
+          //   style: TextStyle(fontSize: 40),
+          // ),
           Expanded(
             child: ListView.builder(
                 itemCount: _categories.length,
