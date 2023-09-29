@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/login': (context) => LoginPage(),
         //'/dashboard': (context) => Dashboard(),
+        '/addCategory': (context) => AddCategory(),
         '/dashboard1': (context) => Dashboard1(),
         '/register': (context) => RegistrationPage(),
         //'/orders': (context) => OrdersList(orders: [],)

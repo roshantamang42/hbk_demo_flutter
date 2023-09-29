@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hbk_demo/components/show_bottom.dart';
 import 'package:hbk_demo/config/config.dart';
+import 'package:hbk_demo/config/image_upload_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
@@ -13,6 +14,8 @@ class AdminCategory extends StatelessWidget {
   late int categoryId;
   late String image;
   var categoryNameController = TextEditingController();
+  XFile? returnedImage;
+  ImageUploadService uploadService = ImageUploadService();
 
   AdminCategory(
       {required this.categoryName,
@@ -21,8 +24,8 @@ class AdminCategory extends StatelessWidget {
       required this.image});
 
   Future addPhoto() async {
-    final returnedImage =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+    returnedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+
     if (returnedImage == null) return;
     // setState(() {
     //   _selectedImage = File(returnedImage.path);
@@ -149,7 +152,7 @@ class AdminCategory extends StatelessWidget {
                                                   BorderRadius.circular(8)),
                                           height: 150,
                                           width: double.infinity,
-                                          child: image != null
+                                          child: PickedFile != null
                                               ? Image.network(
                                                   baseUrl + "files/" + image,
                                                   height: 20,
