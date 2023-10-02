@@ -154,15 +154,14 @@ class _EditCategoryState extends State<EditCategory> {
                           borderRadius: BorderRadius.circular(8)),
                       height: 150,
                       width: double.infinity,
-                      // ignore: unnecessary_null_comparison
-                      child: PickedFile != null
-                          ? Image.network(
-                              baseUrl + "files/" + categoryPhoto,
+                      child: pickedFile != null
+                          ? Image.file(
+                              File(pickedFile!.path),
                               height: 20,
                               width: 20,
                             )
-                          : Image.file(
-                              File(pickedFile!.path),
+                          : Image.network(
+                              baseUrl + "files/" + categoryPhoto,
                               height: 20,
                               width: 20,
                             )),

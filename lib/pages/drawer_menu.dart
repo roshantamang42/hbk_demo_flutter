@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hbk_demo/components/category.dart';
 import 'package:hbk_demo/pages/admin/admin_category_list.dart';
+import 'package:hbk_demo/pages/admin/employee/show_employee.dart';
 import 'package:hbk_demo/pages/admin/products/show_all_products.dart';
 import 'package:hbk_demo/pages/dashboard.dart';
 import 'package:hbk_demo/pages/dashboard1.dart';
@@ -46,6 +47,14 @@ class _DrawerMenuState extends State<DrawerMenu> {
         ),
         ShowAllProducts(),
       ),
+      ScreenHiddenDrawer(
+        ItemHiddenMenu(
+          name: "Employees",
+          baseStyle: TextStyle(color: Colors.white, fontSize: 20),
+          selectedStyle: TextStyle(),
+        ),
+        ShowEmployee(),
+      ),
     ];
   }
 
@@ -54,7 +63,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
     return HiddenDrawerMenu(
       backgroundColorMenu: Color.fromARGB(255, 123, 14, 142),
       screens: _pages,
-      initPositionSelected: 1,
+      initPositionSelected: 3,
     );
   }
 }

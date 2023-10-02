@@ -94,8 +94,8 @@ class _Dashboard1State extends State<Dashboard1> {
 
   // fetch products by categories by clicking on categories
   fetchProducts1(int categoryId) async {
-    print(categoryId);
     var url = "http://10.0.2.2:90/product/$categoryId";
+
     var response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {

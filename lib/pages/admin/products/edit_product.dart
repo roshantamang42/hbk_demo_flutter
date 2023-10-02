@@ -293,14 +293,14 @@ class _EditProductState extends State<EditProduct> {
                                 borderRadius: BorderRadius.circular(8)),
                             height: 150,
                             width: double.infinity,
-                            child: PickedFile != null
-                                ? Image.network(
-                                    baseUrl + "files/" + productPhoto1,
+                            child: pickedFile != null
+                                ? Image.file(
+                                    File(pickedFile!.path),
                                     height: 20,
                                     width: 20,
                                   )
-                                : Image.file(
-                                    File(pickedFile!.path),
+                                : Image.network(
+                                    baseUrl + "files/" + productPhoto1,
                                     height: 20,
                                     width: 20,
                                   )),

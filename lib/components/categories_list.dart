@@ -77,7 +77,7 @@ class CategoriesList extends StatelessWidget {
   Widget build(BuildContext context) {
     return UnconstrainedBox(
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 10),
+        margin: EdgeInsets.symmetric(horizontal: 5),
         height: 120,
         width: 100,
         decoration: BoxDecoration(
@@ -85,21 +85,25 @@ class CategoriesList extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
               padding: const EdgeInsets.all(3),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child:
-                    Image.network("http://10.0.2.2:90/files/" + category_photo),
+              child: Container(
+                width: 80,
+                height: 90,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.network(
+                      "http://10.0.2.2:90/files/" + category_photo),
+                ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 2.0),
               child: Text(
                 category_name,
-                //style: TextStyle(fontSize: 18),
+                style: TextStyle(fontSize: 15),
               ),
             ),
             // GestureDetector(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hbk_demo/pages/admin/add_category.dart';
 import 'package:hbk_demo/pages/admin/admin_category_list.dart';
 import 'package:hbk_demo/pages/admin/edit_category.dart';
+import 'package:hbk_demo/pages/admin/employee/employee_profile.dart';
 import 'package:hbk_demo/pages/admin/products/add_product.dart';
 import 'package:hbk_demo/pages/admin/products/show_all_products.dart';
 import 'package:hbk_demo/pages/dashboard.dart';
@@ -12,6 +13,7 @@ import 'package:hbk_demo/pages/ordersList.dart';
 import 'package:hbk_demo/pages/registration_page.dart';
 import 'package:hbk_demo/pages/splash_screen.dart';
 import 'package:hbk_demo/pages/test.dart';
+import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
 
 void main() {
   runApp(const MyApp());
