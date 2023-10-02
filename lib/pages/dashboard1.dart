@@ -15,6 +15,7 @@ class _Dashboard1State extends State<Dashboard1> {
   var _categories = [];
   var _products = [];
   int total_price = 0;
+  int category_id = 0;
 
   var _cart = [];
 
@@ -64,8 +65,22 @@ class _Dashboard1State extends State<Dashboard1> {
     return categories;
   }
 
-  Future fetchProducts() async {
-    var url = "http://10.0.2.2:90/product/showall";
+  // Future fetchProducts() async {
+  //   var url = "http://10.0.2.2:90/product/showall";
+  //   var response = await http.get(Uri.parse(url));
+  //   var products = [];
+
+  //   if (response.statusCode == 200) {
+  //     products = jsonDecode(response.body)["data"];
+  //   }
+
+  //   //print(products);
+  //   return products;
+  // }
+
+  //initial function to fetch products
+  Future fetchProducts(int categoryId) async {
+    var url = "http://10.0.2.2:90/product/$categoryId";
     var response = await http.get(Uri.parse(url));
     var products = [];
 
@@ -77,20 +92,37 @@ class _Dashboard1State extends State<Dashboard1> {
     return products;
   }
 
+  // fetch products by categories by clicking on categories
+  fetchProducts1(int categoryId) async {
+    print(categoryId);
+    var url = "http://10.0.2.2:90/product/$categoryId";
+    var response = await http.get(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      setState(() {
+        _products = jsonDecode(response.body)["data"];
+      });
+
+      if (_products == null) {
+        print("products not found!");
+      }
+    }
+  }
+
   @override
   void initState() {
     fetchCategories().then((value) {
       setState(() {
         _categories.addAll(value);
       });
-    });
 
-    fetchProducts().then((value) {
-      setState(() {
-        _products.addAll(value);
+      category_id = _categories[0]["category_id"];
+
+      fetchProducts(category_id).then((value) {
+        setState(() {
+          _products.addAll(value);
+        });
       });
-      //print(_products[0]["photo"]);
-      //print(_products);
     });
 
     super.initState();
@@ -147,73 +179,93 @@ class _Dashboard1State extends State<Dashboard1> {
         Container(
           padding: EdgeInsets.only(left: 10, right: 10),
           height: 150,
-          child: ListView.builder(
-            itemCount: _categories.length,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              // Categories category =
-              //     Categories(imagePath: "assets/download.jpeg", title: "Pilot");
-              return CategoriesList(
-                  category_photo: _categories[index]["category_photo"],
-                  category_name: _categories[index]["category_name"]);
-            },
-          ),
+          child: _categories.isNotEmpty
+              ? ListView.builder(
+                  itemCount: _categories.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    // Categories category =
+                    //     Categories(imagePath: "assets/download.jpeg", title: "Pilot");
+                    return GestureDetector(
+                      onTap: () {
+                        fetchProducts1(_categories[index]["category_id"]);
+                      },
+                      child: CategoriesList(
+                          category_photo: _categories[index]["category_photo"],
+                          category_name: _categories[index]["category_name"]),
+                    );
+                  },
+                )
+              : Center(
+                  child: Text(
+                    "Categories not found!",
+                    style: TextStyle(fontSize: 30),
+                  ),
+                ),
         ),
 
         // product list
         Expanded(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: ListView.builder(
-              itemCount: _products.length,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  child: ProductList(
-                    product_name: _products[index]["product_name"],
-                    price: _products[index]["price"],
-                    product_photo: _products[index]["photo"],
-                  ),
-                  onTap: () {
-                    // addItem(index);
-                    // int totalPrice =
-                    //     total_price += int.parse(_products[index]["price"]);
-                    // ScaffoldMessenger.of(context).showSnackBar(
-                    //   SnackBar(
-                    //     backgroundColor: Colors.purple,
-                    //     content: GestureDetector(
-                    //       child: Text(
-                    //         totalPrice.toString(),
-                    //         textAlign: TextAlign.center,
-                    //       ),
-                    //       onTap: () {
-                    //         Navigator.push(
-                    //           context,
-                    //           MaterialPageRoute(
-                    //             builder: (context) => OrdersList(orders: _cart),
-                    //           ),
-                    //         );
-                    //       },
-                    //     ),
-                    //   ),
-                    // );
-                    // showModalBottomSheet(
-                    //   context: context,
-                    //   builder: (BuildContext context) {
-                    //     return SizedBox(
-                    //       height: 400,
-                    //       child: Text("hello"),
-                    //     );
-                    //   },
-                    // );
+            child: _products.isNotEmpty
+                ? ListView.builder(
+                    itemCount: _products.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        child: ProductList(
+                          product_name: _products[index]["product_name"],
+                          price: _products[index]["price"],
+                          product_photo: _products[index]["photo"],
+                        ),
+                        onTap: () {
+                          addItem(index);
+                          int totalPrice = total_price +=
+                              int.parse(_products[index]["price"]);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor: Colors.purple,
+                              content: GestureDetector(
+                                child: Text(
+                                  totalPrice.toString(),
+                                  textAlign: TextAlign.center,
+                                ),
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          OrdersList(orders: _cart),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          );
+                          // showModalBottomSheet(
+                          //   context: context,
+                          //   builder: (BuildContext context) {
+                          //     return SizedBox(
+                          //       height: 400,
+                          //       child: Text("hello"),
+                          //     );
+                          //   },
+                          // );
 
-                    // Future openDialog() => showDialog(
-                    //       context: context,
-                    //       builder: (context) => AboutDialog(title),
-                    //     );
-                  },
-                );
-              },
-            ),
+                          // Future openDialog() => showDialog(
+                          //       context: context,
+                          //       builder: (context) => AboutDialog(title),
+                          //     );
+                        },
+                      );
+                    },
+                  )
+                : Center(
+                    child: Text(
+                      "Products not found!",
+                      style: TextStyle(fontSize: 30),
+                    ),
+                  ),
           ),
         ),
       ]),

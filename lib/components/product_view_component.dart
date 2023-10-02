@@ -74,19 +74,19 @@ class ProductViewComponent extends StatelessWidget {
                       color: Colors.black,
                     ),
                     onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => EditProduct(
-                      //       productId: productId,
-                      //       productName: productName,
-                      //       categoryId: categoryId,
-                      //       price: price,
-                      //       supplierInfo: supplierInfo,
-                      //       productPhoto: productPhoto,
-                      //     ),
-                      //   ),
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EditProduct(
+                            productId: productId,
+                            productName: productName,
+                            categoryId: categoryId,
+                            price: price,
+                            supplierInfo: supplierInfo,
+                            productPhoto: productPhoto,
+                          ),
+                        ),
+                      );
                     },
                   ),
                   GestureDetector(
