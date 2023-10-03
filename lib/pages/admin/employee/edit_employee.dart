@@ -182,204 +182,231 @@ class _EditEmployeeState extends State<EditEmployee> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(top: 38.0, bottom: 20),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(2),
-                child: Text("Edit Employee",
-                    style:
-                        TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  child: Stack(
-                    children: [
-                      CircleAvatar(
-                        radius: 120,
-                        backgroundImage: AssetImage("assets/noimg.jpg"),
-                        //child: Image.asset("assets/momo.jpeg")),
-                      ),
-                      Positioned(
-                          bottom: 5,
-                          right: 25,
-                          child: Icon(
-                            Icons.camera_alt_outlined,
-                            size: 40,
-                          ))
-                    ],
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(2),
+              child: Text("Edit Employee",
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
                   children: [
-                    SizedBox(
-                      width: 190,
-                      child: TextFormField(
-                        controller: firstNameController,
-                        decoration: InputDecoration(
-                            constraints: BoxConstraints(),
-                            hintText: "First Name"),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 190,
-                      child: TextFormField(
-                        controller: lastNameController,
-                        decoration: InputDecoration(hintText: "Last Name"),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  controller: emailController,
-                  decoration: InputDecoration(hintText: "Email"),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  controller: addressController,
-                  decoration: InputDecoration(hintText: "Address"),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  controller: mobileController,
-                  decoration: InputDecoration(hintText: "Mobile"),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  controller: passwordController,
-                  decoration: InputDecoration(hintText: "Password"),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Text(
-                      "Joined Date :",
-                      style: TextStyle(fontSize: 20),
-                    ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 20.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: Container(
-                        child: Row(
-                          children: [
-                            Text(
-                              "2012-12-12",
-                              style: TextStyle(fontSize: 20),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20.0),
-                              child: GestureDetector(
-                                child: Icon(
-                                  Icons.calendar_month_outlined,
-                                  size: 20,
-                                ),
-                                onTap: () {
-                                  // showModalBottomSheet(
-                                  //     context: context,
-                                  //     builder: (context) {
-                                  //       return SizedBox(
-                                  //           height: 400,
-                                  //           child: CupertinoDatePicker(
-                                  //               mode: CupertinoDatePickerMode
-                                  //                   .date,
-                                  //               initialDateTime:
-                                  //                   DateTime(1969, 1, 1),
-                                  //               onDateTimeChanged:
-                                  //                   (DateTime newDateTime) {
-                                  //                 print(newDateTime);
-                                  //               }));
-                                  //     });
+                        child: GestureDetector(
+                          onTap: _openGallery,
+                          child: Stack(
+                            children: [
+                              Container(
+                                child: pickedFile != null
+                                    ? Image.file(
+                                        File(pickedFile!.path),
+                                      )
+                                    : Image.asset(
+                                        "assets/noimg.jpg",
+                                      ),
 
-                                  showDatePicker(
-                                      context: context,
-                                      initialDate: DateTime(2020, 1, 1),
-                                      firstDate: DateTime(1999, 12, 30),
-                                      lastDate: DateTime(2099, 12, 30));
-                                },
+                                height: 250,
+                                width: 250,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(125),
+                                  //shape: BoxShape.circle,
+                                ),
+
+                                //child: Image.asset("assets/momo.jpeg")),
                               ),
-                            ),
-                          ],
+                              // CircleAvatar(
+                              //   radius: 120,
+                              //   backgroundImage: AssetImage("assets/noimg.jpg"),
+                              //   //child: Image.asset("assets/momo.jpeg")),
+                              // ),
+                              Positioned(
+                                  bottom: 5,
+                                  right: 25,
+                                  child: Icon(
+                                    Icons.camera_alt_outlined,
+                                    size: 40,
+                                  ))
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Text(
-                      "End Date :",
-                      style: TextStyle(fontSize: 20),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 46.0),
-                      child: Container(
-                        child: Row(
-                          children: [
-                            Text(
-                              "2012-12-12",
-                              style: TextStyle(fontSize: 20),
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: 190,
+                            child: TextFormField(
+                              controller: firstNameController,
+                              decoration: InputDecoration(
+                                  constraints: BoxConstraints(),
+                                  hintText: "First Name"),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20.0),
-                              child: GestureDetector(
-                                child: GestureDetector(
-                                  child: Icon(
-                                    Icons.calendar_month_outlined,
-                                    size: 20,
+                          ),
+                          SizedBox(
+                            width: 190,
+                            child: TextFormField(
+                              controller: lastNameController,
+                              decoration:
+                                  InputDecoration(hintText: "Last Name"),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        controller: emailController,
+                        decoration: InputDecoration(hintText: "Email"),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        controller: addressController,
+                        decoration: InputDecoration(hintText: "Address"),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        controller: mobileController,
+                        decoration: InputDecoration(hintText: "Mobile"),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        controller: passwordController,
+                        decoration: InputDecoration(hintText: "Password"),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Text(
+                            "Joined Date :",
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20.0),
+                            child: Container(
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "2012-12-12",
+                                    style: TextStyle(fontSize: 20),
                                   ),
-                                ),
-                                onTap: () {
-                                  showDatePicker(
-                                      context: context,
-                                      initialDate: DateTime(2020, 1, 1),
-                                      firstDate: DateTime(1999, 12, 30),
-                                      lastDate: DateTime(2099, 12, 30));
-                                },
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 20.0),
+                                    child: GestureDetector(
+                                      child: Icon(
+                                        Icons.calendar_month_outlined,
+                                        size: 20,
+                                      ),
+                                      onTap: () {
+                                        // showModalBottomSheet(
+                                        //     context: context,
+                                        //     builder: (context) {
+                                        //       return SizedBox(
+                                        //           height: 400,
+                                        //           child: CupertinoDatePicker(
+                                        //               mode: CupertinoDatePickerMode
+                                        //                   .date,
+                                        //               initialDateTime:
+                                        //                   DateTime(1969, 1, 1),
+                                        //               onDateTimeChanged:
+                                        //                   (DateTime newDateTime) {
+                                        //                 print(newDateTime);
+                                        //               }));
+                                        //     });
+
+                                        showDatePicker(
+                                            context: context,
+                                            initialDate: DateTime(2020, 1, 1),
+                                            firstDate: DateTime(1999, 12, 30),
+                                            lastDate: DateTime(2099, 12, 30));
+                                      },
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Text(
+                            "End Date :",
+                            style: TextStyle(fontSize: 20),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 46.0),
+                            child: Container(
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "2012-12-12",
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 20.0),
+                                    child: GestureDetector(
+                                      child: GestureDetector(
+                                        child: Icon(
+                                          Icons.calendar_month_outlined,
+                                          size: 20,
+                                        ),
+                                      ),
+                                      onTap: () {
+                                        showDatePicker(
+                                            context: context,
+                                            initialDate: DateTime(2020, 1, 1),
+                                            firstDate: DateTime(1999, 12, 30),
+                                            lastDate: DateTime(2099, 12, 30));
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton(
+                          onPressed: () {
+                            editEmployee();
+                          },
+                          child: Text("Save")),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text("Go Back")),
                     ),
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(
-                    onPressed: () {
-                      editEmployee();
-                    },
-                    child: Text("Save")),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text("Go Back")),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
