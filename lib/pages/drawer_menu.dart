@@ -63,7 +63,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
     return HiddenDrawerMenu(
       backgroundColorMenu: Color.fromARGB(255, 123, 14, 142),
       screens: _pages,
-      initPositionSelected: 3,
+      initPositionSelected: 0,
     );
   }
 }
