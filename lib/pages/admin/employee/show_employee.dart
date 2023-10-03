@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:hbk_demo/pages/admin/employee/add_employee.dart';
 import 'package:hbk_demo/pages/admin/employee/employee_component.dart';
 import 'package:http/http.dart' as http;
 
@@ -77,7 +78,16 @@ class _ShowEmployeeState extends State<ShowEmployee> {
               ),
               Spacer(flex: 3),
               //icons
-              FilledButton(onPressed: () {}, child: Text("Add"))
+              FilledButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AddEmployee(),
+                      ),
+                    );
+                  },
+                  child: Text("Add"))
             ],
           ),
         ),
@@ -91,6 +101,9 @@ class _ShowEmployeeState extends State<ShowEmployee> {
                     empId: _employees[index]["id"],
                     empName: _employees[index]["full_name"],
                     mobile: _employees[index]["mobile"],
+                    address: _employees[index]["address"],
+                    password: _employees[index]["password"],
+                    email: _employees[index]["email"],
                   );
                 }),
           ),

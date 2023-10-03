@@ -6,12 +6,18 @@ class EmployeeComponent extends StatelessWidget {
   late int empId;
   late String empName;
   late String mobile;
+  late String email;
+  late String password;
+  late String address;
 
   EmployeeComponent(
       {super.key,
       required this.empId,
       required this.empName,
-      required this.mobile});
+      required this.mobile,
+      required this.address,
+      required this.email,
+      required this.password});
 
   void deleteEmployee(int empId) async {
     try {
@@ -80,7 +86,15 @@ class EmployeeComponent extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => EditEmployee(),
+                          builder: (context) => EditEmployee(
+                            employeeId: empId,
+                            firstName: empName,
+                            lastName: "last static",
+                            email: email,
+                            address: address,
+                            mobile: mobile,
+                            password: password,
+                          ),
                         ),
                       );
                     },

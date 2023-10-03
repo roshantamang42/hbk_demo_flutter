@@ -95,8 +95,6 @@ class _EditProductState extends State<EditProduct> {
   }
 
   editProduct() async {
-    print(pickedFile);
-
     Dio dio = Dio();
     try {
       //if both file and name are present
